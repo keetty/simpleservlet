@@ -1,4 +1,4 @@
-package src.database; 
+package src.dto; 
 public class Student {
 private Integer id;
 private String firstName;

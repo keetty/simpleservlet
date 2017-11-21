@@ -1,4 +1,4 @@
-package src.database; 
+package src.dto; 
 public class Subject {
 private Integer id;
 private String nameOfSubject;

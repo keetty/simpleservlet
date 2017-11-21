@@ -1,4 +1,5 @@
-package src.database; 
+package src.dto; 
+
 public class Mark {
 private Integer id;
 private Integer studentId;
