@@ -4,6 +4,9 @@ import src.dto;
 import java.sql.*; 
 import java.util.*; 
 import src.database.*; 
+import org.springframework.stereotype.Repository;
+
+@Repository
 
 public class DaoMark implements MarkDaoImpl {  
 private static final String SELECT = "SELECT ID FROM STUDENTS_SUBJECTS WHERE STUDENTS_ID=? AND SUBJECTS_ID=?";

@@ -4,6 +4,9 @@ import src.dto;
 import java.sql.*;
 import java.util.*;
 import src.database.*;
+import org.springframework.stereotype.Repository;
+
+@Repository
 
 public class StudentDao implements StudentDaoImpl {
 private final String sql1="INSERT INTO STUDENTS" + "(FIRST_NAME, SECOND_NAME) VALUES" 

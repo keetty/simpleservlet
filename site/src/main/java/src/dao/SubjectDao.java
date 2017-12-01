@@ -4,6 +4,9 @@ import src.dto;
 import java.sql.*;
 import java.util.*;
 import src.database.*;
+import org.springframework.stereotype.Repository;
+
+@Repository
 
 public class SubjectDao implements SubjectDaoImpl {
 private final String sql1="INSERT INTO SUBJECTS" + "(NAME_OF_SUBJECT) VALUES" 

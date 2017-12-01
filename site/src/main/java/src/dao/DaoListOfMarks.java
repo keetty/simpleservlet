@@ -4,6 +4,9 @@ import src.dto;
 import java.sql.*; 
 import java.util.*; 
 import src.database.*; 
+import org.springframework.stereotype.Repository;
+
+@Repository
 
 public class DaoListOfMarks  {  
 private static final String SELECT_STUDENTS="SELECT ID, FIRST_NAME, SECOND_NAME FROM STUDENTS";  
