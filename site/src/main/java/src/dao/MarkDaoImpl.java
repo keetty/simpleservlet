@@ -1,6 +1,6 @@
 package src.dao; 
-import src.database;
-import src.dto;
+import src.database.*;
+import src.dto.*;
 import java.sql.*;
 import java.util.Map;
 public interface MarkDaoImpl {

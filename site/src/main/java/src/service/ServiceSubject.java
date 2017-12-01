@@ -3,9 +3,12 @@ package src.service;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import src.dao.*;
+import src.database.*;
 import src.dto.*;
 import java.util.*;
+import java.sql.*; 
 
 @Service
 @Scope("session")
@@ -16,7 +19,7 @@ public class ServiceSubject {
 	
 	
 	@Autowired 
-	public Service() throws DaoException, SQLException{
+	ServiceSubject() throws DaoException, SQLException{
 		sd=new SubjectDao();
 		
 	}
@@ -32,7 +35,7 @@ public class ServiceSubject {
 	}
 	
 	public List<Subject> ListSubjects() throws DaoException {
-		return sd.getAllStudents();
+		return sd.getAllSubjects();
 	}
 	public Subject getNameSubject(Subject subject) throws DaoException {
 		return sd.getNameSubject(subject);

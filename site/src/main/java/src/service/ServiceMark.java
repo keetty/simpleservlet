@@ -3,33 +3,38 @@ package src.service;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import src.database.*;
 import src.dao.*;
 import src.dto.*;
 import java.util.*;
+import java.sql.*;
 
 @Service
 @Scope("session")
 
 public class ServiceMark {
 	
+	
 	private DaoMark dm;
+	
 	private DaoListOfMarks dl;
 	
 	@Autowired 
 	
-	public Service() throws DaoException, SQLException{
+	ServiceMark() throws DaoException, SQLException{
 		dm=new DaoMark();
 		dl=new DaoListOfMarks();
 	}
 	
-	public Subject addMark(Mark mark) throws DaoException {
-		 return sd.add(mark);
+	public Mark addMark(Mark mark) throws DaoException {
+		 return dm.add(mark);
 	}
 	public void updateMark(Mark mark) throws DaoException{
-		sd.update(mark);
+		dm.update(mark);
 	}
 	public void deleteMark(Mark mark)throws DaoException {
-		sd.delete(mark);
+		dm.delete(mark);
 	}
 	
 
@@ -38,7 +43,7 @@ public class ServiceMark {
 	}
 	
 	@PreDestroy
-	public void close DaoMark() throws DaoException{
+	public void closeDaoMark() throws DaoException{
 	
 	dm.close();
 	}
