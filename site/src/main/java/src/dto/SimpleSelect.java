@@ -18,9 +18,9 @@ String str = rs.getString(3);
 System.out.println(str);
 }
 } catch (ClassNotFoundException e) {
-System.out.println("Не найден драйвер для доступа к бд   "    +       e.getMessage());  
+System.out.println("РќРµ РЅР°Р№РґРµРЅ РґСЂР°Р№РІРµСЂ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє Р±Рґ   "    +       e.getMessage());  
 } catch (SQLException e) {
-System.out.println( " Ошибка срединения   "       + e.getMessage());
+System.out.println( " РћС€РёР±РєР° СЃСЂРµРґРёРЅРµРЅРёСЏ   "       + e.getMessage());
 }  finally {
 if(rs!=null){
 try {
@@ -38,7 +38,7 @@ System.out.println( e.getMessage());
 try {
 con.close();
 } catch(SQLException e) {
-System.out.println(" Соединение не закрыто   "  + e.getMessage());
+System.out.println(" РЎРѕРµРґРёРЅРµРЅРёРµ РЅРµ Р·Р°РєСЂС‹С‚Рѕ   "  + e.getMessage());
 }
 }
 }
