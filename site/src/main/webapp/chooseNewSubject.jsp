@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ page import="java.io.IOException,  java.util.*, java.sql.*, javax.servlet.http.*, javax.servlet.ServletException, java.net.URLEncoder, src.database.*"%>
+<%@ page import="java.io.IOException,  java.util.*, java.sql.*, javax.servlet.http.*, javax.servlet.ServletException, java.net.URLEncoder, src.database.*, src.dto.*, src.service.*, scr.dao.*"%>
   
   
 <html>
@@ -11,8 +11,8 @@
 	  <body>
 	  <% String[] par = (String[])request.getAttribute("par");
 	  List<Integer> list1 = (List<Integer>)request.getAttribute("list1");
-	  SubjectDao sb=(SubjectDao)request.getAttribute("sb");
-	  StudentDao sd = (StudentDao)request.getAttribute("sd");
+	  ServiceSubject sb=(ServiceSubject)request.getAttribute("subjectService");
+	  ServiceStudent sd = (ServiceStudent)request.getAttribute("studentService");
 	  Student student = (Student)request.getAttribute("student");
 	  for (int i = 0; i < par.length; i++) { 
 Subject subject = new Subject(); 

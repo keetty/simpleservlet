@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
+import javax.annotation.PreDestroy;
 import src.dao.*;
 import src.database.*;
 import src.dto.*;
@@ -24,19 +26,19 @@ public class ServiceStudent {
 		
 	}
 	
-	public Student addStudent(Student student) throws DaoException {
+	public Student add(Student student) throws DaoException {
 		 return sd.add(student);
 	}
-	public void updateStudent(Student student) throws DaoException{
+	public void update(Student student) throws DaoException{
 		sd.update(student);
 	}
-	public void deleteStudent(Student student)throws DaoException {
+	public void delete(Student student)throws DaoException {
 		sd.delete(student);
 	}
-	public void setStudentSubjectId(Student student, Subject subject) throws DaoException {
+	public void setStudentsSubjectsId(Student student, Subject subject) throws DaoException {
 		sd.setStudentsSubjectsId(student, subject);
 	}
-	public List<Student> ListStudents() throws DaoException {
+	public List<Student> getListStudents() throws DaoException {
 		return sd.getAllStudents();
 	}
 	public List<Integer> getSubjectsId(int key) throws DaoException {

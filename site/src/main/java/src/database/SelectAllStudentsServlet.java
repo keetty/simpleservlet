@@ -6,14 +6,19 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpSession; 
 import java.sql.*; 
 import java.util.*;  
-import src.dto.*;
 import src.dao.*;
+import src.dto.*;
+import src.service.*;
 import javax.servlet.ServletException; 
 import javax.servlet.http.HttpServlet; 
 import javax.servlet.http.HttpServletRequest; 
 import javax.servlet.http.HttpServletResponse; 
 import javax.servlet.RequestDispatcher; 
+import org.springframework.stereotype.Controller;
+import  org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 
+@Controller
 
 public class SelectAllStudentsServlet extends HttpServlet { 
 
@@ -34,13 +39,20 @@ private static final String SUBJECT_UPDATE = "/simpleservlet/Students/Subjects/u
 private static final String FORM_MARK_UPDATE = "/simpleservlet/Students/AllMarks/update/form";
 private static final String MARK_UPDATE = "/simpleservlet/Students/AllMarks/update"; 
 
+@Autowired
+private static ServiceStudent studentService;
+
+@Autowired
+private static ServiceSubject subjectService;
+
+@Autowired
+private static ServiceMark markService;
+
+
+
 public static void getListOfStudents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
 
-HttpSession session = req.getSession(); 
-
-StudentDao sd =(StudentDao)session.getAttribute("StudentDao"); 
-
-List<Student> list =sd.getAllStudents(); 
+List<Student> list =studentService.getListStudents(); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/listOfStudents.jsp");
 rd.forward(req, resp);
@@ -48,15 +60,15 @@ rd.forward(req, resp);
 
 public static void chooseSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException, NumberFormatException { 
 
-HttpSession session = req.getSession(); 
+
 
 Student s = new Student(); 
 s.setId(Integer.valueOf(req.getParameter("id"))); 
 String ids=String.valueOf(s.getId()); 
 req.setAttribute("student", s);
 req.setAttribute("ids", ids);
-SubjectDao sd = (SubjectDao)session.getAttribute("SubjectDao"); 
-List<Subject> list = sd.getAllSubjects(); 
+
+List<Subject> list = subjectService.getListSubjects(); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/chooseSubjects.jsp");
 rd.forward(req, resp);
@@ -64,18 +76,17 @@ rd.forward(req, resp);
 
 public static void chooseNewSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
 
 Student student = new Student(); 
 student.setId(Integer.valueOf(req.getParameter("id"))); 
 String[] par = req.getParameterValues("subject"); 
 req.setAttribute("student", student);
 req.setAttribute("par", par);
-StudentDao sd = (StudentDao)session.getAttribute("StudentDao"); 
-req.setAttribute("sd", sd);
-SubjectDao sb = (SubjectDao)session.getAttribute("SubjectDao"); 
-req.setAttribute("sb", sb);
-List<Integer> list1 = sd.getSubjectsId(student.getId()); 
+
+req.setAttribute("studentService", studentService);
+ 
+req.setAttribute("subjectService", subjectService);
+List<Integer> list1 = studentService.getSubjectsId(student.getId()); 
 req.setAttribute("list1", list1);
 RequestDispatcher rd = req.getRequestDispatcher("/chooseNewSubject.jsp");
 rd.forward(req, resp);
@@ -84,18 +95,14 @@ rd.forward(req, resp);
 
 public static void getListOfSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException{ 
  
-HttpSession session = req.getSession(); 
 
-SubjectDao sb = (SubjectDao)session.getAttribute("SubjectDao"); 
-List<Subject> list = sb.getAllSubjects(); 
+List<Subject> list = subjectService.getListSubjects(); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/listOfSubjects.jsp");
 rd.forward(req, resp);
 }
 
 public static void getAllMarks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
-
-HttpSession session = req.getSession(); 
 
 Student s = new Student(); 
 s.setId(Integer.valueOf(req.getParameter("id"))); 
@@ -108,8 +115,7 @@ req.setAttribute("ur1", ur1);
 req.setAttribute("ur2", ur2);
 req.setAttribute("ids", ids);
 
-DaoListOfMarks dl=(DaoListOfMarks)session.getAttribute("DaoListOfMarks"); 
-List<ReportCard> list=dl.getAllMarks(s); 
+List<ReportCard> list=markService.getAllMarks(s); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/allMarks.jsp");
 rd.forward(req, resp);
@@ -117,25 +123,23 @@ rd.forward(req, resp);
 } 
 
 public static void addNewStudentForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
-HttpSession session = req.getSession(); 
 RequestDispatcher rd = req.getRequestDispatcher("/addNewStudentForm.jsp");
 rd.forward(req, resp);
 }
 
 public static void addNewStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
-HttpSession session = req.getSession(); 
+
 	Student s=new Student(); 
 s.setFirstName(req.getParameter("firstname")); 
 s.setSecondName(req.getParameter("secondname")); 
-StudentDao sd = (StudentDao)session.getAttribute("StudentDao"); 
-sd.add(s); 
+
+studentService.add(s); 
 RequestDispatcher rd = req.getRequestDispatcher("/newStudent.jsp");
 rd.forward(req, resp); 
 }
 
 public static void addNewSubjectForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
 
-HttpSession session = req.getSession(); 
 RequestDispatcher rd = req.getRequestDispatcher("/addNewSubjectForm.jsp");
 rd.forward(req, resp); 
 
@@ -143,26 +147,24 @@ rd.forward(req, resp);
 
 public static void addNewSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
 
-HttpSession session = req.getSession(); 
 Subject s=new Subject(); 
 s.setNameOfSubject(req.getParameter("nameofsubject")); 
-SubjectDao sb = (SubjectDao)session.getAttribute("SubjectDao"); 
-sb.add(s); 
+
+subjectService.add(s); 
 RequestDispatcher rd = req.getRequestDispatcher("/newSubject.jsp");
 rd.forward(req, resp); 
 }  
 
 public static void addNewMarkForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
+
 String ids=req.getParameter("id"); 
 Student student = new Student(); 
 student.setId(Integer.valueOf(ids)); 
-StudentDao sd = (StudentDao)session.getAttribute("StudentDao"); 
-List<Integer> subjectId= sd.getSubjectsId(student.getId()); 
-SubjectDao sb = (SubjectDao)session.getAttribute("SubjectDao"); 
+
+List<Integer> subjectId= studentService.getSubjectsId(student.getId()); 
 req.setAttribute("list", subjectId);
-req.setAttribute("sb", sb);
+req.setAttribute("subjectService", subjectService);
 req.setAttribute("ids", ids);
 RequestDispatcher rd = req.getRequestDispatcher("/newMarkForm.jsp");
 rd.forward(req, resp); 
@@ -171,41 +173,35 @@ rd.forward(req, resp);
 
 public static void addNewMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
 String ids=req.getParameter("id"); 
 Student student = new Student(); 
 student.setId(Integer.valueOf(ids)); 
 Subject subject = new Subject(); 
-subject.setId(Integer.valueOf(req.getParameter("studentsmark"))); 
-DaoMark dm = (DaoMark)session.getAttribute("DaoMark"); 
+subject.setId(Integer.valueOf(req.getParameter("studentsmark")));  
 Mark mark = new Mark(); 
-mark.setStudentSubjectId(dm.getStudentSubjectId(student, subject)); 
+mark.setStudentSubjectId(markService.getStudentSubjectId(student, subject)); 
 mark.setMark(Integer.valueOf(req.getParameter("mark"))); 
-dm.add(mark); 
+markService.add(mark); 
 RequestDispatcher rd = req.getRequestDispatcher("/newMark.jsp");
 rd.forward(req, resp); 
 }  
 
 public static void deleteStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
-
 Student student = new Student(); 
 student.setId(Integer.valueOf(req.getParameter("id"))); 
-StudentDao sd = (StudentDao)session.getAttribute("StudentDao"); 
-sd.delete(student); 
+
+studentService.delete(student); 
 RequestDispatcher rd = req.getRequestDispatcher("/delete.jsp");
 rd.forward(req, resp); 
 }  
 
 public static void deleteSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
  
 Subject subject = new Subject(); 
-subject.setId(Integer.valueOf(req.getParameter("id"))); 
-SubjectDao sd = (SubjectDao)session.getAttribute("SubjectDao"); 
-sd.delete(subject); 
+subject.setId(Integer.valueOf(req.getParameter("id")));  
+subjectService.delete(subject); 
 RequestDispatcher rd = req.getRequestDispatcher("/delete.jsp");
 rd.forward(req, resp); 
 }  
@@ -213,13 +209,11 @@ rd.forward(req, resp);
 
 public static void deleteMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
-
  
 Mark mark = new Mark(); 
 mark.setId(Integer.valueOf(req.getParameter("id"))); 
-DaoMark dm = (DaoMark)session.getAttribute("DaoMark"); 
-dm.delete(mark); 
+
+markService.delete(mark); 
 
 RequestDispatcher rd = req.getRequestDispatcher("/delete.jsp");
 rd.forward(req, resp); 
@@ -228,7 +222,6 @@ rd.forward(req, resp);
 
 public static void formOfUpdateStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
 
 Student student = new Student(); 
 student.setId(Integer.valueOf(req.getParameter("id"))); 
@@ -246,26 +239,23 @@ rd.forward(req, resp);
 
 public static void updateStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
+
 
 Student student = new Student(); 
 student.setId(Integer.valueOf(req.getParameter("id"))); 
 student.setFirstName(req.getParameter("fn")); 
-student.setSecondName(req.getParameter("sn")); 
-StudentDao sd = (StudentDao)session.getAttribute("StudentDao"); 
-sd.update(student); 
+student.setSecondName(req.getParameter("sn"));  
+studentService.update(student); 
 RequestDispatcher rd = req.getRequestDispatcher("/update.jsp");
 rd.forward(req, resp); 
 }  
 
 public static void formOfUpdateSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession();  
 
 Subject subject= new Subject(); 
 subject.setId(Integer.valueOf(req.getParameter("id"))); 
-SubjectDao sd = (SubjectDao)session.getAttribute("SubjectDao"); 
-Subject subject1=sd.getNameSubject(subject);
+Subject subject1=subjectService.getNameSubject(subject);
 subject.setNameOfSubject(subject1.getNameOfSubject()); 
 String ids=String.valueOf(subject.getId());
 String ur=ur=subject.getNameOfSubject();  
@@ -277,13 +267,12 @@ rd.forward(req, resp);
 
 public static void updateSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
 
-HttpSession session = req.getSession(); 
  
 Subject subject = new Subject(); 
 subject.setId(Integer.valueOf(req.getParameter("id"))); 
 subject.setNameOfSubject(req.getParameter("sn")); 
-SubjectDao sd = (SubjectDao)session.getAttribute("SubjectDao"); 
-sd.update(subject); 
+
+subjectService.update(subject); 
 RequestDispatcher rd = req.getRequestDispatcher("/update.jsp");
 rd.forward(req, resp); 
 
@@ -291,14 +280,14 @@ rd.forward(req, resp);
 
 
 public static void formOfUpdateMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
-HttpSession session = req.getSession();
+
 
 String ur=req.getParameter("ns"); 
 Mark mark = new Mark(); 
 mark.setId(Integer.valueOf(req.getParameter("id"))); 
 String ids =String.valueOf(mark.getId()); 
-DaoMark dm = (DaoMark)session.getAttribute("DaoMark"); 
-int i=dm.selectOneMark(mark); 
+ 
+int i=markService.selectOneMark(mark); 
 req.setAttribute("ids", ids);
 req.setAttribute("ur", ur);
 req.setAttribute("i", i);
@@ -307,14 +296,14 @@ rd.forward(req, resp);
 
 } 
 public static void updateMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
-HttpSession session = req.getSession();
+
 
 
 Mark mark = new Mark();
 mark.setId(Integer.valueOf(req.getParameter("id"))); 
 mark.setMark(Integer.valueOf(req.getParameter("mark"))); 
-DaoMark dm = (DaoMark)session.getAttribute("DaoMark"); 
-dm.update(mark); 
+
+markService.update(mark); 
 RequestDispatcher rd = req.getRequestDispatcher("/update.jsp");
 rd.forward(req, resp);
 }

@@ -9,6 +9,8 @@ import src.database.*;
 import src.dto.*;
 import java.util.*;
 import java.sql.*; 
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
+import javax.annotation.PreDestroy;
 
 @Service
 @Scope("session")
@@ -24,17 +26,17 @@ public class ServiceSubject {
 		
 	}
 	
-	public Subject addSubject(Subject subject) throws DaoException {
+	public Subject add(Subject subject) throws DaoException {
 		 return sd.add(subject);
 	}
-	public void updateSubject(Subject subject) throws DaoException{
+	public void update(Subject subject) throws DaoException{
 		sd.update(subject);
 	}
-	public void deleteSubject(Subject subject)throws DaoException {
+	public void delete(Subject subject)throws DaoException {
 		sd.delete(subject);
 	}
 	
-	public List<Subject> ListSubjects() throws DaoException {
+	public List<Subject> getListSubjects() throws DaoException {
 		return sd.getAllSubjects();
 	}
 	public Subject getNameSubject(Subject subject) throws DaoException {
