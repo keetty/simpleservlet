@@ -54,7 +54,7 @@ public static void getListOfStudents(HttpServletRequest req, HttpServletResponse
 
 List<Student> list =studentService.getListStudents(); 
 req.setAttribute("list", list);
-RequestDispatcher rd = req.getRequestDispatcher("/listOfStudents.jsp");
+RequestDispatcher rd = req.getRequestDispatcher("/jsp/listOfStudents.jsp");
 rd.forward(req, resp);
 } 
 
