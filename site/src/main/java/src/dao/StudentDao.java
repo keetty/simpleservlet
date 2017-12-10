@@ -5,8 +5,11 @@ import java.sql.*;
 import java.util.*;
 import src.database.*;
 import org.springframework.stereotype.Repository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import javax.annotation.PostConstruct;
 
-@Repository
+
 
 public class StudentDao implements StudentDaoImpl {
 private final String sql1="INSERT INTO STUDENTS" + "(FIRST_NAME, SECOND_NAME) VALUES" 
@@ -24,6 +27,7 @@ private PreparedStatement st3;
 private PreparedStatement st4;
 private PreparedStatement st5;
 private PreparedStatement st6;
+
 
 
 public StudentDao() throws SQLException, DaoException {

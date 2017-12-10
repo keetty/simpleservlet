@@ -11,20 +11,29 @@ import src.database.*;
 import src.dto.*;
 import java.util.*;
 import java.sql.*; 
+import org.springframework.context.annotation.ScopedProxyMode;
+import javax.annotation.PostConstruct;
 
-@Service
-@Scope("session")
+
+
 
 public class ServiceStudent {
 	
 	private StudentDao sd;
+
 	
+	@Autowired
 	
-	@Autowired 
-	ServiceStudent() throws DaoException, SQLException{
-		sd=new StudentDao();
+	ServiceStudent() throws DaoException, SQLException {
 		
+	this.sd=sd;
 	}
+  
+  @PostConstruct
+  public void init()  throws DaoException, SQLException {
+	  sd = new StudentDao();
+  }
+	
 	
 	public Student add(Student student) throws DaoException {
 		 return sd.add(student);

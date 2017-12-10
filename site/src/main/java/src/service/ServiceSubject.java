@@ -11,20 +11,28 @@ import java.util.*;
 import java.sql.*; 
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import org.springframework.context.annotation.ScopedProxyMode;
 
-@Service
-@Scope("session")
+
+
 
 public class ServiceSubject {
 	
+	
+	
 	private SubjectDao sd;
-	
-	
-	@Autowired 
+	@Autowired
 	ServiceSubject() throws DaoException, SQLException{
-		sd=new SubjectDao();
-		
-	}
+	  
+    this.sd=sd;
+  }
+  
+   @PostConstruct
+  public void init() throws DaoException, SQLException  {
+	  sd = new SubjectDao();
+  }
+	
 	
 	public Subject add(Subject subject) throws DaoException {
 		 return sd.add(subject);

@@ -4,10 +4,14 @@ import src.dto.*;
 import java.sql.*; 
 import java.util.*; 
 import src.database.*; 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import javax.annotation.PostConstruct;
 
-@Repository
 
+@Component("markDao")
+@Scope("session")
 public class DaoMark implements MarkDaoImpl {  
 private static final String SELECT = "SELECT ID FROM STUDENTS_SUBJECTS WHERE STUDENTS_ID=? AND SUBJECTS_ID=?";
 private static final String CREATE_MARK="INSERT INTO MARKS" + "(STUDENTS_SUBJECTS_ID,  MARKS) VALUES" 
@@ -21,6 +25,7 @@ private  PreparedStatement insert;
 private  PreparedStatement update; 
 private  PreparedStatement delete; 
 private  PreparedStatement selectMark; 
+
 
 public DaoMark() throws SQLException, DaoException { 
 try { 

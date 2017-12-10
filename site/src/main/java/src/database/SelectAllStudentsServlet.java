@@ -9,16 +9,20 @@ import java.util.*;
 import src.dao.*;
 import src.dto.*;
 import src.service.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.ServletException; 
 import javax.servlet.http.HttpServlet; 
 import javax.servlet.http.HttpServletRequest; 
 import javax.servlet.http.HttpServletResponse; 
 import javax.servlet.RequestDispatcher; 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import  org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
-@Controller
+
+@WebServlet(name = "Students", urlPatterns = {"/Students/*"})
+@Component
 
 public class SelectAllStudentsServlet extends HttpServlet { 
 
@@ -38,6 +42,7 @@ private static final String FORM_SUBJECT_UPDATE = "/simpleservlet/Students/Subje
 private static final String SUBJECT_UPDATE = "/simpleservlet/Students/Subjects/update"; 
 private static final String FORM_MARK_UPDATE = "/simpleservlet/Students/AllMarks/update/form";
 private static final String MARK_UPDATE = "/simpleservlet/Students/AllMarks/update"; 
+private static WebApplicationContext context;
 
 @Autowired
 private static ServiceStudent studentService;
@@ -51,7 +56,6 @@ private static ServiceMark markService;
 
 
 public static void getListOfStudents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
-
 List<Student> list =studentService.getListStudents(); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/jsp/listOfStudents.jsp");

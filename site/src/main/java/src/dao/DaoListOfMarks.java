@@ -4,9 +4,13 @@ import src.dto.*;
 import java.sql.*; 
 import java.util.*; 
 import src.database.*; 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import javax.annotation.PostConstruct;
 
-@Repository
+@Component("listDao")
+@Scope("session")
 
 public class DaoListOfMarks  {  
 private static final String SELECT_STUDENTS="SELECT ID, FIRST_NAME, SECOND_NAME FROM STUDENTS";  
@@ -16,6 +20,8 @@ private  Connection connection;
 private  PreparedStatement selectStudent;
 private  PreparedStatement allMarks;
 private  PreparedStatement marksAtOneSubject;
+
+
 
 public DaoListOfMarks() throws SQLException, DaoException { 
 try { 

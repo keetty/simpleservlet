@@ -11,24 +11,32 @@ import src.dao.*;
 import src.dto.*;
 import java.util.*;
 import java.sql.*;
+import org.springframework.context.annotation.ScopedProxyMode;
+import javax.annotation.PostConstruct;
 
-@Service
-@Scope("session")
 
 public class ServiceMark {
 	
 	
 	private DaoMark dm;
 	
+	
 	private DaoListOfMarks dl;
+	 
+	 @Autowired
+	ServiceMark() throws DaoException, SQLException {
+	  
+    this.dm=dm;
+	this.dl=dl;
+
+  }
+   @PostConstruct
+  public void init() throws DaoException, SQLException {
+	  dm= new DaoMark();
+	  dl = new DaoListOfMarks();
+  }
 	
-	@Autowired 
-	
-	ServiceMark() throws DaoException, SQLException{
-		dm=new DaoMark();
-		dl=new DaoListOfMarks();
-	}
-	
+
 	public Mark add(Mark mark) throws DaoException {
 		 return dm.add(mark);
 	}

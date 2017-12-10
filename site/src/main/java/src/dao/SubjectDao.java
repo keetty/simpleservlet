@@ -4,9 +4,14 @@ import src.dto.*;
 import java.sql.*;
 import java.util.*;
 import src.database.*;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import javax.annotation.PostConstruct;
 
-@Repository
+
+@Component("subjectDao")
+@Scope("session")
 
 public class SubjectDao implements SubjectDaoImpl {
 private final String sql1="INSERT INTO SUBJECTS" + "(NAME_OF_SUBJECT) VALUES" 
