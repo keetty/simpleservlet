@@ -4,12 +4,12 @@
 <web-app>
 
  <listener>
-      <listener-class>src.database.SessionListener</listener-class>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
    </listener>
  
   <servlet>
     <servlet-name>Students</servlet-name>
-    <servlet-class>src.database.SelectAllStudentsServlet</servlet-class>
+    <servlet-class>folder.database.SelectAllStudentsServlet</servlet-class>
   </servlet>
  
   <servlet-mapping>

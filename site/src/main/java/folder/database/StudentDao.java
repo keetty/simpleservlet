@@ -1,7 +1,7 @@
 package folder.database; 
 import java.sql.*;
 import java.util.*;
-import src.database.*;
+
 
 import org.springframework.stereotype.Repository;
 import org.springframework.context.annotation.Scope;
@@ -71,16 +71,7 @@ return student;
 }
 
 
-	public void setStudentsSubjectsId(Student student, Subject subject) throws DaoException {
-		try {
-	        st5.setInt(1, student.getId());
-			st5.setInt(2, subject.getId());
-			st5.executeUpdate();
-			} catch(SQLException e) {
-	e.printStackTrace();
-throw new DaoException(" Cannot create the student ", e);
-}
-	}
+	
 	
 	
  @Override

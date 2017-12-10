@@ -10,7 +10,7 @@ public ConnectionFactory() {
 try {
 Class.forName(nameOfDriver);
 } catch(ClassNotFoundException e) {
-System.out.println("Не найден драйвер для доступа к бд"    +    e.getMessage());
+System.out.println("РќРµ РЅР°Р№РґРµРЅ РґСЂР°Р№РІРµСЂ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє Р±Рґ"    +    e.getMessage());
 }  
 }
 public Connection getConnection() throws SQLException {
