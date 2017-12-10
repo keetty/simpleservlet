@@ -1,22 +1,14 @@
 package folder.database; 
-public class Student {
-private Integer id;
-private String firstName;
-private String secondName;
-private int ssid;
+import org.springframework.stereotype.Component;
 
-public void setId(Integer id ) {
-this.id = id;
-} 
-public Integer getId() {
-return id;
-}
-public void setSsid(int ssid ) {
-this.ssid = ssid;
-} 
-public int getSsid() {
-return ssid;
-}
+@Component
+public class Student {
+
+private String firstName = "Петров";
+private String secondName="Иван";
+
+
+
 public void setFirstName(String firstName ) {
 this.firstName = firstName;
 } 

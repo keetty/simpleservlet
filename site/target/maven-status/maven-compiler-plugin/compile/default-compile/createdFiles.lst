@@ -1,6 +1,0 @@
-folder\database\DaoException.class
-folder\database\Student.class
-folder\database\StudentDao.class
-folder\database\SelectAllStudentsServlet.class
-folder\database\StudentDaoImpl.class
-folder\database\ConnectionFactory.class

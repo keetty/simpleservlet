@@ -22,18 +22,8 @@ public class SelectAllStudentsServlet extends HttpServlet {
 private static final String LIST_OF_STUDENTS = "/simpleservlet/Students"; 
 
 @Autowired
- private static StudentDao sd;
 
-public static void getListOfStudents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
-
-
-List<Student> list =sd.getAllStudents(); 
-req.setAttribute("list", list);
-RequestDispatcher rd = req.getRequestDispatcher("/listOfStudents.jsp");
-rd.forward(req, resp);
-} 
-
-
+ private static Student sd;
 
 
 public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
@@ -47,9 +37,8 @@ if(st.hasMoreTokens()) {
 newUrl=st.nextToken(); 
 }
 
-if(newUrl.equals(LIST_OF_STUDENTS)) { 
-getListOfStudents(req, resp);
-} 
+PrintWriter pw= resp.getWriter();
+pw.print(sd.getFirstName() + sd.getSecondName());
 	
 } catch(DaoException e) {
 e.printStackTrace();
