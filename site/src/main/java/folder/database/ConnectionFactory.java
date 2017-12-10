@@ -1,4 +1,4 @@
-package src.database; 
+package folder.database; 
 import java.sql.*;
 
 public class ConnectionFactory  {

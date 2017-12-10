@@ -1,4 +1,4 @@
-package src.database; 
+package folder.database; 
 public class Student {
 private Integer id;
 private String firstName;
