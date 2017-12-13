@@ -1,11 +1,11 @@
 package folder.database; 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class Student {
 
-private String firstName = "Петров";
-private String secondName="Иван";
+private String firstName="Ivanov";
+private String secondName="Ivan";
 
 
 
@@ -22,6 +22,9 @@ public String getSecondName() {
 return secondName;
 }
 public Student() { 
+this.firstName=firstName;
+this.secondName=secondName;
+System.out.println("Bean created");
 }
 public String toString() {
  return firstName     +

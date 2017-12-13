@@ -12,37 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse; 
 import javax.servlet.RequestDispatcher; 
 import javax.servlet.annotation.WebServlet;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import  org.springframework.beans.factory.annotation.Autowired;
-
-  @WebServlet(name = "Students", urlPatterns = {"/Students/*"})
-  @Component
-public class SelectAllStudentsServlet extends HttpServlet { 
-
-private static final String LIST_OF_STUDENTS = "/simpleservlet/Students"; 
-
-@Autowired
-
- private static Student sd;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
-public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
-try {
-	String url=req.getRequestURI(); 
-String newUrl="";
-resp.setContentType("text/html;charset=utf-8"); 
+@Controller
+@RequestMapping({"/", "/Students"})
+public class SelectAllStudentsServlet { 
 
-StringTokenizer st = new StringTokenizer(url, ";"); 
-if(st.hasMoreTokens()) { 
-newUrl=st.nextToken(); 
-}
 
+ @Autowired
+ Student student;
+
+@RequestMapping(value = "/Student", method = RequestMethod.GET)
+public void getStudent(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
 PrintWriter pw= resp.getWriter();
-pw.print(sd.getFirstName() + sd.getSecondName());
+pw.print(student.getFirstName() + student.getSecondName());
 	
-} catch(DaoException e) {
-e.printStackTrace();
 } 
 
 } 
-}
