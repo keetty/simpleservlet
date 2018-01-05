@@ -1,7 +1,7 @@
 package folder.database; 
 import org.springframework.stereotype.Component;
 
-
+@Component("student")
 public class Student {
 
 private String firstName="Ivanov";
@@ -27,7 +27,7 @@ this.secondName=secondName;
 System.out.println("Bean created");
 }
 public String toString() {
- return firstName     +
+ return firstName     + " " +
   secondName;
 }
 }

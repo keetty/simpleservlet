@@ -12,26 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse; 
 import javax.servlet.RequestDispatcher; 
 import javax.servlet.annotation.WebServlet;
-import org.springframework.stereotype.Controller;
 import  org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@Controller
-@RequestMapping({"/", "/Students"})
-public class SelectAllStudentsServlet { 
 
 
- @Autowired
- Student student;
 
-@RequestMapping(value = "/Student", method = RequestMethod.GET)
-public void getStudent(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
+@WebServlet(name = "simpleservlet", urlPatterns = {"/Students/*"})
+public class SelectAllStudentsServlet extends HttpServlet { 
+
+public void doGet(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
+resp.setContentType("text/html;charset=utf-8");
+WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
 PrintWriter pw= resp.getWriter();
-pw.print(student.getFirstName() + student.getSecondName());
+pw.print(context.getBean("student"));
 	
 } 
 
