@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ page import="java.io.IOException,  java.util.*, java.sql.*, javax.servlet.http.*, javax.servlet.ServletException, java.net.URLEncoder, src.database.*, src.dto.*, src.service.*, scr.dao.*"%>
+<%@ page import="java.io.IOException,  java.util.*, java.sql.*, javax.servlet.http.*, javax.servlet.ServletException, java.net.URLEncoder, spring.database.*, spring.dto.*, spring.service.*, spring.dao.*"%>
   
   
 <html>
@@ -43,7 +43,7 @@
 <input type="hidden" name="id" value="<%=ids%>" >
 </input>
 <p>Предмет
-<input type="text" name="sn" value="<%=ur%>">
+<input type="text" name="sn" value="<%=ur%>" disabled>
 </input>
 </p>
 <p>Оценка

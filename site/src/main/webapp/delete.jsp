@@ -10,7 +10,7 @@
 	  </head>
 	  <body>
 	  <center>
-	  <br>Оценка добавлена</br>
+	  <br>Удалено</br>
 	  <p>
 	  <H3>
 	  <a href="<%=response.encodeUrl("/simpleservlet/Students")%>">Вернуться к списку студентов</a>
