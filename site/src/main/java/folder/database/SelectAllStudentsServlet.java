@@ -25,8 +25,11 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 @WebServlet(name = "simpleservlet", urlPatterns = {"/Students/*"})
 public class SelectAllStudentsServlet extends HttpServlet { 
+
 @Autowired
-Student student;
+ServiceStudent service;
+private static final String NEW_STUDENT = "/simpleservlet/Students/newstudent";
+
 
  public void init(ServletConfig config) throws ServletException {
     super.init(config);
@@ -34,9 +37,28 @@ Student student;
   }
 
 public void doGet(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
-resp.setContentType("text/html;charset=utf-8");
-PrintWriter pw= resp.getWriter();
-pw.print(student.toString());
+
+	String url=req.getRequestURI(); 
+String newUrl="";
+resp.setContentType("text/html;charset=utf-8"); 
+
+StringTokenizer st = new StringTokenizer(url, ";"); 
+if(st.hasMoreTokens()) { 
+newUrl=st.nextToken(); 
+}
+if(newUrl.equals(NEW_STUDENT)&& req.getQueryString()==null) {
+RequestDispatcher rd = req.getRequestDispatcher("/addNewStudentForm.jsp");
+rd.forward(req, resp);
+} else if(newUrl.equals(NEW_STUDENT) && req.getQueryString()!=null) {
+Student student = new Student();
+student.setFirstName(req.getParameter("firstname")); 
+student.setSecondName(req.getParameter("secondname")); 
+service.addStudent(student);
+RequestDispatcher rd = req.getRequestDispatcher("/newStudent.jsp");
+rd.forward(req, resp); 
+}
+
+
 	
 } 
 

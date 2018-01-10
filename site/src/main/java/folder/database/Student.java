@@ -1,13 +1,26 @@
 package folder.database; 
+import javax.persistence.*;
 import org.springframework.stereotype.Component;
 
-@Component("student")
+
+@Entity
+@Table(name = "student")
 public class Student {
 
-private String firstName="Ivanov";
-private String secondName="Ivan";
+ @Id
+ @Column(name= "ID")
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+private Integer id;
 
 
+@Column(name= "first_name")
+private String firstName;
+
+@Column(name= "second_name")
+private String secondName;
+
+public Student() {
+}
 
 public void setFirstName(String firstName ) {
 this.firstName = firstName;
@@ -21,11 +34,7 @@ this.secondName = secondName;
 public String getSecondName() {
 return secondName;
 }
-public Student() { 
-this.firstName=firstName;
-this.secondName=secondName;
-System.out.println("Bean created");
-}
+
 public String toString() {
  return firstName     + " " +
   secondName;
