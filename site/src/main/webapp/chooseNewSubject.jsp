@@ -13,17 +13,22 @@
 	  List<Integer> list1 = (List<Integer>)request.getAttribute("list1");
 	  ServiceSubject sb=(ServiceSubject)request.getAttribute("subjectService");
 	  ServiceStudent sd = (ServiceStudent)request.getAttribute("studentService");
+	  ServiceStudentSubject ss = (ServiceStudentSubject)request.getAttribute("ssService");
 	  Student student = (Student)request.getAttribute("student");
+	  Cord cord = new Cord();
 	  for (int i = 0; i < par.length; i++) { 
+	  
 Subject subject = new Subject(); 
 subject.setId(Integer.valueOf(par[i])); 
+cord.setStudentId(student.getId());
+cord.setSubjectId(subject.getId());
 if(list1.contains(Integer.valueOf(par[i]))) { %>
 
 <H2>Студент уже изучает предмет" 
-<%=sb.getNameSubject(subject)%>
+<%=sb.getNameSubject(subject.getId())%>
 ".Выберите другой</H2>
 <%} else { 
-sd.setStudentsSubjectsId(student, subject); 
+ss.setStudentsSubjectsId(cord); 
 } 
 } %>
 <p>

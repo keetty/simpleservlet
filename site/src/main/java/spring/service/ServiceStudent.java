@@ -2,52 +2,96 @@ package spring.service;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PreDestroy;
-import spring.dao.*;
 import spring.database.*;
 import spring.dto.*;
 import java.util.*;
 import java.sql.*; 
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.hibernate.SessionFactory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.Query;
 
 
 
-@Service("student")
+@Repository("student")
 @Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 
 public class ServiceStudent {
 	
 	@Autowired
-	private StudentDao sd;
+	private SessionFactory sessionFactory;
 
   
 	
-	public Student add(Student student) throws DaoException {
-		 return sd.add(student);
+	public void add(Student student) {
+		Session session = sessionFactory.openSession();
+		Transaction transaction=null;
+try {	
+	transaction= session.beginTransaction();
+        session.save(student);
+        transaction.commit();
+} catch(Exception e) {
+	transaction.rollback();
+    throw  e;
+} finally {
+	
+        session.close();
+}
 	}
-	public void update(Student student) throws DaoException{
-		sd.update(student);
+	public void update(Student student) {
+		Session session = sessionFactory.openSession();
+		Transaction transaction=null;
+try {
+transaction= session.beginTransaction();
+        session.update(student);
+        transaction.commit();
+} catch(Exception e) {
+	transaction.rollback();
+	throw e;
+} finally {
+        session.close();
 	}
-	public void delete(Student student)throws DaoException {
-		sd.delete(student);
 	}
-	public void setStudentsSubjectsId(Student student, Subject subject) throws DaoException {
-		sd.setStudentsSubjectsId(student, subject);
+	public void delete(Student student) {
+		
+		Session session = sessionFactory.openSession();
+		Transaction transaction=null;
+		try {
+			transaction= session.beginTransaction();
+        session.delete(student);
+        transaction.commit();
+		} catch(Exception e) {
+			transaction.rollback();
+			throw e;
+		} finally {
+			
+        session.close();
 	}
-	public List<Student> getListStudents() throws DaoException {
-		return sd.getAllStudents();
-	}
-	public List<Integer> getSubjectsId(int key) throws DaoException {
-		return sd.getSubjectsId(key);
 	}
 	
-	@PreDestroy 
-	
-	public void closeDao() throws DaoException {
-		sd.close();
+	public List<Student> getListStudents() {
+		Session session = sessionFactory.openSession();
+		Query query;
+		List<Student> list=null;
+		try {
+        query = session.createQuery(  " FROM Student");
+		list=query.list();
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			session.close();
+		}
+        return list;
+		
+		
 	}
+	
+	
+	
 }
 		
-	

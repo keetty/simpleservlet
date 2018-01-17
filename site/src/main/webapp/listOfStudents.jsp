@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.IOException,  java.util.*, java.sql.*, javax.servlet.http.*, javax.servlet.ServletException, java.net.URLEncoder, spring.database.*, spring.dto.*, spring.service.*, spring.dao.*"%>
+<%@ page import="java.io.IOException,  java.util.*, java.sql.*, javax.servlet.http.*, javax.servlet.ServletException, java.net.URLEncoder, spring.database.*, spring.dto.*, spring.service.*"%>
   
   
 <html>
@@ -53,7 +53,8 @@ for(Student s:list) {
 int id=s.getId(); 
 String ids=String.valueOf(id); 
 String ur1=s.getFirstName(); 
-String ur2=s.getSecondName(); %>
+String ur2=s.getSecondName();%>
+
 <H3>
 <br>
 <%=i%>

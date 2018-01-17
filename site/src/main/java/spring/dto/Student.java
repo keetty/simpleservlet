@@ -1,21 +1,31 @@
 package spring.dto; 
+
+import javax.persistence.*;
+import java.util.*;
+
+
+@Entity
+@Table(name="students")
+
+
 public class Student {
-private Integer id;
-private String firstName;
+	
+@Id
+@Column(name="ID") 
+@GeneratedValue(strategy=GenerationType.IDENTITY) 
+ private Integer id;
+
+@Column(name="FIRST_NAME")  
+ private String firstName;
+
+@Column(name="SECOND_NAME")  
 private String secondName;
-private int ssid;
 
 public void setId(Integer id ) {
 this.id = id;
 } 
 public Integer getId() {
 return id;
-}
-public void setSsid(int ssid ) {
-this.ssid = ssid;
-} 
-public int getSsid() {
-return ssid;
 }
 public void setFirstName(String firstName ) {
 this.firstName = firstName;

@@ -6,7 +6,6 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpSession; 
 import java.sql.*; 
 import java.util.*;  
-import spring.dao.*;
 import spring.dto.*;
 import spring.service.*;
 import javax.servlet.annotation.WebServlet;
@@ -53,6 +52,9 @@ private  ServiceSubject subjectService;
 @Autowired
 private  ServiceMark markService;
 
+@Autowired 
+private ServiceStudentSubject ssService;
+
 public void init(ServletConfig config) throws ServletException {
     super.init(config);
     SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
@@ -93,7 +95,8 @@ req.setAttribute("par", par);
 req.setAttribute("studentService", studentService);
  
 req.setAttribute("subjectService", subjectService);
-List<Integer> list1 = studentService.getSubjectsId(student.getId()); 
+req.setAttribute("ssService", ssService);
+List<Integer> list1 = ssService.getSubjectsId(student.getId()); 
 req.setAttribute("list1", list1);
 RequestDispatcher rd = req.getRequestDispatcher("/chooseNewSubject.jsp");
 rd.forward(req, resp);
@@ -122,7 +125,7 @@ req.setAttribute("ur1", ur1);
 req.setAttribute("ur2", ur2);
 req.setAttribute("ids", ids);
 
-List<ReportCard> list=markService.getAllMarks(s); 
+List<Map<Subject,Mark>> list=markService.getAllMarks(s); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/allMarks.jsp");
 rd.forward(req, resp);
@@ -169,7 +172,7 @@ String ids=req.getParameter("id");
 Student student = new Student(); 
 student.setId(Integer.valueOf(ids)); 
 
-List<Integer> subjectId= studentService.getSubjectsId(student.getId()); 
+List<Integer> subjectId= ssService.getSubjectsId(student.getId()); 
 req.setAttribute("list", subjectId);
 req.setAttribute("subjectService", subjectService);
 req.setAttribute("ids", ids);
@@ -186,7 +189,9 @@ student.setId(Integer.valueOf(ids));
 Subject subject = new Subject(); 
 subject.setId(Integer.valueOf(req.getParameter("studentsmark")));  
 Mark mark = new Mark(); 
-mark.setStudentSubjectId(markService.getStudentSubjectId(student, subject)); 
+Cord cord = new Cord();
+cord.setId(ssService.getStudentSubjectId(student.getId(), subject.getId()));
+mark.setStudentSubjectId(cord); 
 mark.setMark(Integer.valueOf(req.getParameter("mark"))); 
 markService.add(mark); 
 RequestDispatcher rd = req.getRequestDispatcher("/newMark.jsp");
@@ -262,7 +267,7 @@ public  void formOfUpdateSubject(HttpServletRequest req, HttpServletResponse res
 
 Subject subject= new Subject(); 
 subject.setId(Integer.valueOf(req.getParameter("id"))); 
-Subject subject1=subjectService.getNameSubject(subject);
+Subject subject1=subjectService.getNameSubject(subject.getId());
 subject.setNameOfSubject(subject1.getNameOfSubject()); 
 String ids=String.valueOf(subject.getId());
 String ur=ur=subject.getNameOfSubject();  
@@ -292,9 +297,9 @@ public  void formOfUpdateMark(HttpServletRequest req, HttpServletResponse resp) 
 String ur=req.getParameter("ns"); 
 Mark mark = new Mark(); 
 mark.setId(Integer.valueOf(req.getParameter("id"))); 
+mark.setMark(Integer.valueOf(req.getParameter("mark")));
+int i=mark.getMark();
 String ids =String.valueOf(mark.getId()); 
- 
-int i=markService.selectOneMark(mark); 
 req.setAttribute("ids", ids);
 req.setAttribute("ur", ur);
 req.setAttribute("i", i);

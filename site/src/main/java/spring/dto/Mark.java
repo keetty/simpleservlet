@@ -1,11 +1,27 @@
 package spring.dto; 
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="marks")
+
 public class Mark {
+	
+@Id
+@Column(name="M_ID")  
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Integer id;
-private Integer studentId;
-private Integer subjectId;
-private Integer studentSubjectId;
-int mark;
+
+
+@ManyToOne (cascade=CascadeType.ALL)
+@JoinColumn (name="STUDENT_SUBJECT_ID")
+ 
+private Cord studentSubjectId;
+
+
+@Column(name="MARKS")  
+
+private Integer mark;
 
 
 public void setId(Integer id ) {
@@ -14,22 +30,10 @@ this.id = id;
 public Integer getId() {
 return id;
 }
-public void setStudentId(Integer studentId ) {
-this.studentId = studentId;
-} 
-public Integer getStudentId() {
-return studentId;
-}
-public void setSubjectId(Integer subjectId ) {
-this.subjectId = subjectId;
-} 
-public Integer getSubjectId() {
-return subjectId;
-}
-public void setStudentSubjectId(Integer studentSubjectId ) {
+public void setStudentSubjectId(Cord studentSubjectId ) {
 this.studentSubjectId = studentSubjectId;
 } 
-public Integer getStudentSubjectId() {
+public Cord getStudentSubjectId() {
 return studentSubjectId;
 }
 public void setMark(int mark ) {

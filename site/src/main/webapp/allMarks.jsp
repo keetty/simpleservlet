@@ -53,10 +53,16 @@ String ids = (String)request.getAttribute("ids");%>
 </table>
 </td>
 <td valign="top">
-<% List<ReportCard> list = (List<ReportCard>)request.getAttribute("list");
-for(ReportCard r:list) { 
-String ur=r.getNameOfSubject(); 
-String idss=String.valueOf(r.getId()); %>
+<% List<Map<Subject,Mark>> list = (List<Map<Subject,Mark>>)request.getAttribute("list");
+Mark mark;
+for(Map<Subject,Mark> map:list) { 
+Set subjects = map.keySet(); 
+for(Subject subject : subjects) {
+String ur=subject.getNameOfSubject(); 
+mark=map.get(subject);
+String idss=String.valueOf(mark.getId());
+String  mark=String.valueOf(mark.getMark());
+%>
 <p>
 <H3><%=r%>
 </H3>
@@ -64,6 +70,7 @@ String idss=String.valueOf(r.getId()); %>
 <br>
 <form action="<%=response.encodeUrl("/simpleservlet/Students/AllMarks/update/form" +"?"+"id=value")%>"  method="get">
 <input type="hidden" name="id" value="<%=idss%>"> 
+<input type="hidden" name="mark" value="<%=mark%>"> 
 <input type="hidden" name="ns" value="<%=ur%>">
 <input type="submit" value="Редактировать">
 </form>
