@@ -20,7 +20,7 @@ private Integer student_id;
 
 private Integer subject_id;
 
-@OneToMany(mappedBy = "mark", cascade = CascadeType.ALL)
+@OneToMany(mappedBy = "mark")
 private List<Mark> marks=new ArrayList<Mark>();
 
 public void setId(Integer id ) {

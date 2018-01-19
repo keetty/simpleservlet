@@ -61,11 +61,11 @@ transaction	= session.beginTransaction();
 	
 	public int getStudentSubjectId(int key1, int key2) {
 		Session session = sessionFactory.openSession();
-		SQLQuery query;
+		Query query;
 		int i;
 		try {
-		String qu="SELECT ID FROM students_subjects WHERE STUDENTS_ID= :stId AND SUBJECTS_ID= :sbId";
-        query=session.createSQLQuery(qu).addEntity(Cord.class);
+		String qu="SELECT id FROM Cord WHERE student_id= :stId AND subject_id= :sbId";
+        query=session.createQuery(qu);
 		query.setParameter("stId", key1);
 		query.setParameter("sbId", key2);
 		i=(int)query.uniqueResult();

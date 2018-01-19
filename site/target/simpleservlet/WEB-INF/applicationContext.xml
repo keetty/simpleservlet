@@ -29,6 +29,7 @@
          <value>spring.dto.Subject</value>  
          <value>spring.dto.Mark</value>  
          <value>spring.dto.Cord</value>  
+		 <value>spring.dto.ListMark</value>
        </list>  
      </property>  
      <property name="hibernateProperties">  

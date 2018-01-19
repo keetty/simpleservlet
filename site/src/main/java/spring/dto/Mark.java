@@ -14,7 +14,7 @@ private Integer id;
 
 
 @ManyToOne (cascade=CascadeType.ALL)
-@JoinColumn (name="STUDENT_SUBJECT_ID")
+@JoinColumn (name="STUDENT_SUBJECT_ID", updatable=false)
  
 private Cord studentSubjectId;
 

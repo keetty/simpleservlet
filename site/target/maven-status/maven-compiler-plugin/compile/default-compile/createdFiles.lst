@@ -9,5 +9,6 @@ spring\database\DaoException.class
 spring\database\SelectAllStudentsServlet.class
 spring\database\SimpleSelect.class
 spring\database\ConnectionFactory.class
+spring\dto\ListMark.class
 spring\dto\Student.class
 spring\service\ServiceStudent.class

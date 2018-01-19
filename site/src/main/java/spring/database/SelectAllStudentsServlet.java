@@ -125,7 +125,7 @@ req.setAttribute("ur1", ur1);
 req.setAttribute("ur2", ur2);
 req.setAttribute("ids", ids);
 
-List<Map<Subject,Mark>> list=markService.getAllMarks(s); 
+List<ListMark> list=markService.getAllMarks(s.getId()); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/allMarks.jsp");
 rd.forward(req, resp);
@@ -190,6 +190,8 @@ Subject subject = new Subject();
 subject.setId(Integer.valueOf(req.getParameter("studentsmark")));  
 Mark mark = new Mark(); 
 Cord cord = new Cord();
+cord.setStudentId(student.getId());
+cord.setSubjectId(subject.getId());
 cord.setId(ssService.getStudentSubjectId(student.getId(), subject.getId()));
 mark.setStudentSubjectId(cord); 
 mark.setMark(Integer.valueOf(req.getParameter("mark"))); 

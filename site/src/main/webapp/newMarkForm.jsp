@@ -45,8 +45,8 @@ ServiceSubject sb = (ServiceSubject)request.getAttribute("subjectService");
 for(Integer t:subjectId) { 
 Subject subject = new Subject(); 
 subject.setId(t); 
-sb.getNameSubject(subject); %>
-<option value="<%=subject.getId()%>"><%=sb.getNameSubject(subject)%></option>
+sb.getNameSubject(subject.getId()); %>
+<option value="<%=subject.getId()%>"><%=sb.getNameSubject(subject.getId())%></option>
 <%}%>
 </select>
 <form id="marks" action="<%=response.encodeUrl("/simpleservlet/Students/AllMarks/newmark"+"?"+"studentsmark=value" + "&"+"mark=value" +"&"+"id=value")%>" method="get" >

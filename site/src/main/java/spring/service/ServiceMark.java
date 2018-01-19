@@ -17,6 +17,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.ScrollableResults;
 import org.hibernate.ScrollMode;
+import org.hibernate.transform.Transformers;
 
 
 @Repository("mark")
@@ -48,7 +49,7 @@ try {
 		Transaction transaction=null;
 try {
 transaction= session.beginTransaction();
-        session.update(mark);
+        session.merge(mark);
         transaction.commit();
 } catch(Exception e) {
 	transaction.rollback();
@@ -75,38 +76,20 @@ transaction= session.beginTransaction();
 	}
 	
 
-	public List<Map<Subject, Mark>> getAllMarks(Student student) {
+	public List<ListMark> getAllMarks(Integer i) {
 	Session session = sessionFactory.openSession();
-		SQLQuery query;
-		ScrollableResults results=null;
-		List<Map<Subject, Mark>> list=new ArrayList<Map<Subject,Mark>>();
-		Map<Subject,Mark> map = new HashMap<Subject, Mark>();
+		Query query;
+		List<ListMark> list=new ArrayList<ListMark>();
 		try {
 			
-		String qu="SELECT M.ID, NAME_OF_SUBJECT, MARKS FROM STUDENTS as S JOIN STUDENTS_SUBJECTS as T on S.ID=T.STUDENTS_ID JOIN SUBJECTS as U on U.ID=T.SUBJECTS_ID JOIN MARKS as M on T.ID=M.STUDENTS_SUBJECTS_ID  WHERE S.ID= :stID  ORDER BY U.ID ";
-        query=session.createSQLQuery(qu).addEntity(Mark.class);
-		query.setFetchSize(Integer.MIN_VALUE);
-        results = query.scroll(ScrollMode.FORWARD_ONLY);
-		query.setParameter("stID", student.getId());
-		while (results.next()) {
-			Mark mark = new Mark();
-			Subject subject = new Subject();
-			mark.setId(results.getInteger(1));
-			subject.setNameOfSubject(results.getString(2));
-			mark.setMark(results.getInteger(3));
-			map.put(subject, mark);
-			list.add(map);
-		}
+		String qu="SELECT M_ID, NAME_OF_SUBJECT, MARKS FROM STUDENTS as S JOIN STUDENTS_SUBJECTS as T on S.ID=T.STUDENTS_ID JOIN SUBJECTS as U on U.S_ID=T.SUBJECTS_ID JOIN MARKS as M on T.SS_ID=M.STUDENT_SUBJECT_ID  WHERE S.ID= :stID  ORDER BY U.S_ID ";
+        query=session.createSQLQuery(qu).setResultTransformer(Transformers.aliasToBean(ListMark.class));
+		query.setParameter("stID", i);
+		list=query.list();
 		} catch(Exception e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
-			if(results!=null) {
-				try {
-					results.close();
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
 			session.close();
 		}
         
@@ -119,4 +102,3 @@ transaction= session.beginTransaction();
 	
 	
 	
-}

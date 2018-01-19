@@ -53,18 +53,14 @@ String ids = (String)request.getAttribute("ids");%>
 </table>
 </td>
 <td valign="top">
-<% List<Map<Subject,Mark>> list = (List<Map<Subject,Mark>>)request.getAttribute("list");
-Mark mark;
-for(Map<Subject,Mark> map:list) { 
-Set subjects = map.keySet(); 
-for(Subject subject : subjects) {
-String ur=subject.getNameOfSubject(); 
-mark=map.get(subject);
-String idss=String.valueOf(mark.getId());
-String  mark=String.valueOf(mark.getMark());
+<% List<ListMark> list = (List<ListMark>)request.getAttribute("list");
+for(ListMark marks:list) { 
+String ur=marks.getNameOfSubject(); 
+String idss=String.valueOf(marks.getId());
+String  mark=String.valueOf(marks.getMark());
 %>
 <p>
-<H3><%=r%>
+<H3><%=marks%>
 </H3>
 </p>
 <br>
