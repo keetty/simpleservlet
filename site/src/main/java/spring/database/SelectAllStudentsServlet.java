@@ -60,14 +60,14 @@ public void init(ServletConfig config) throws ServletException {
     SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
   }
 
-public  void getListOfStudents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
+public  void getListOfStudents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
 List<Student> list =studentService.getListStudents(); 
 req.setAttribute("list", list);
 RequestDispatcher rd = req.getRequestDispatcher("/listOfStudents.jsp");
 rd.forward(req, resp);
 } 
 
-public  void chooseSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException, NumberFormatException { 
+public  void chooseSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 
@@ -83,7 +83,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/chooseSubjects.jsp");
 rd.forward(req, resp);
 } 
 
-public void chooseNewSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public void chooseNewSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 Student student = new Student(); 
@@ -103,7 +103,7 @@ rd.forward(req, resp);
 
 }  
 
-public  void getListOfSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException{ 
+public  void getListOfSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
  
 
 List<Subject> list = subjectService.getListSubjects(); 
@@ -112,7 +112,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/listOfSubjects.jsp");
 rd.forward(req, resp);
 }
 
-public  void getAllMarks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void getAllMarks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 Student s = new Student(); 
 s.setId(Integer.valueOf(req.getParameter("id"))); 
@@ -132,12 +132,12 @@ rd.forward(req, resp);
 
 } 
 
-public  void addNewStudentForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
+public  void addNewStudentForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
 RequestDispatcher rd = req.getRequestDispatcher("/addNewStudentForm.jsp");
 rd.forward(req, resp);
 }
 
-public void addNewStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
+public void addNewStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
 
 	Student s=new Student(); 
 s.setFirstName(req.getParameter("firstname")); 
@@ -148,14 +148,14 @@ RequestDispatcher rd = req.getRequestDispatcher("/newStudent.jsp");
 rd.forward(req, resp); 
 }
 
-public  void addNewSubjectForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
+public  void addNewSubjectForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
 
 RequestDispatcher rd = req.getRequestDispatcher("/addNewSubjectForm.jsp");
 rd.forward(req, resp); 
 
 } 
 
-public  void addNewSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, DaoException { 
+public  void addNewSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
 
 Subject s=new Subject(); 
 s.setNameOfSubject(req.getParameter("nameofsubject")); 
@@ -165,7 +165,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/newSubject.jsp");
 rd.forward(req, resp); 
 }  
 
-public  void addNewMarkForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void addNewMarkForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 String ids=req.getParameter("id"); 
@@ -181,7 +181,7 @@ rd.forward(req, resp);
 
 } 
 
-public  void addNewMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void addNewMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 String ids=req.getParameter("id"); 
 Student student = new Student(); 
@@ -200,7 +200,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/newMark.jsp");
 rd.forward(req, resp); 
 }  
 
-public  void deleteStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void deleteStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 Student student = new Student(); 
 student.setId(Integer.valueOf(req.getParameter("id"))); 
@@ -210,7 +210,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/delete.jsp");
 rd.forward(req, resp); 
 }  
 
-public  void deleteSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void deleteSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
  
 Subject subject = new Subject(); 
@@ -221,7 +221,7 @@ rd.forward(req, resp);
 }  
 
 
-public  void deleteMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void deleteMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
  
 Mark mark = new Mark(); 
@@ -234,7 +234,7 @@ rd.forward(req, resp);
 }  
 
 
-public  void formOfUpdateStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void formOfUpdateStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 Student student = new Student(); 
@@ -251,7 +251,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/updateStudentForm.jsp");
 rd.forward(req, resp); 
 } 
 
-public  void updateStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void updateStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 
@@ -264,7 +264,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/update.jsp");
 rd.forward(req, resp); 
 }  
 
-public  void formOfUpdateSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void formOfUpdateSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 Subject subject= new Subject(); 
@@ -279,7 +279,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/updateSubjectForm.jsp");
 rd.forward(req, resp); 
 } 
 
-public  void updateSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void updateSubject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
  
 Subject subject = new Subject(); 
@@ -293,7 +293,7 @@ rd.forward(req, resp);
 }
 
 
-public  void formOfUpdateMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void formOfUpdateMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 String ur=req.getParameter("ns"); 
@@ -309,7 +309,7 @@ RequestDispatcher rd = req.getRequestDispatcher("/updateMarkForm.jsp");
 rd.forward(req, resp);
 
 } 
-public  void updateMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException, DaoException { 
+public  void updateMark(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
 
 
 
@@ -324,7 +324,6 @@ rd.forward(req, resp);
 
 
 public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
-try {
 	String url=req.getRequestURI(); 
 String newUrl="";
 resp.setContentType("text/html;charset=utf-8"); 
@@ -379,9 +378,7 @@ updateMark(req, resp);
 	formOfUpdateMark(req, resp);
 } 
 	
-} catch(DaoException e) {
-e.printStackTrace();
-} 
+
 
 } 
 }
