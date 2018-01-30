@@ -26,6 +26,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 public class SelectAllStudentsServlet extends HttpServlet { 
 
 private static final String LIST_OF_STUDENTS = "/simpleservlet/Students"; 
+private static final String LIST = "/simpleservlet/Students/select"; 
 private static final String CHOICE_SUBJECT = "/simpleservlet/Students/choicesubject"; 
 private static final String LIST_OF_SUBJECTS = "/simpleservlet/Students/Subjects"; 
 private static final String LIST_OF_MARKS = "/simpleservlet/Students/AllMarks"; 
@@ -67,9 +68,34 @@ RequestDispatcher rd = req.getRequestDispatcher("/listOfStudents.jsp");
 rd.forward(req, resp);
 } 
 
+public  void getList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
+PrintWriter pw=resp.getWriter();
+List<Student> list =studentService.getListStudents(); 
+for(Student s:list) { 
+int id=s.getId(); 
+String ids=String.valueOf(id); 
+String ur1=s.getFirstName(); 
+String ur2=s.getSecondName();
+pw.println("<H3>" + "<br>" +
+"<a href=\"" + resp.encodeUrl("/simpleservlet/Students/AllMarks" +"?"+"fn="+ur1+"&"+"sn="+ur2+"&"+"id="+ids)+"\">"+ s +"</a>");
+pw.println("</H3>" +"</br>"+"<br>" +
+ "<form action=\""+resp.encodeUrl("/simpleservlet/Students/choicesubject" + "?"+"id=value''" ) + "\"method=\"get\">" +
+"<input type='hidden' name='id' value='"+ids+"'>" +
+ "<input type='submit' value='Подобрать предметы'>" +
+ "</form>" +"</br>"+"<br>" +
+ "<form action=\"" +resp.encodeUrl("/simpleservlet/Students/update/form" +"?"+"id=value" +"&" +"firstname=value" + "&" +"secondname=value" )+"\" method=\"get\">" +
+ "<input type='hidden' name='id' value='"+ids+"'>" +
+"<input type='hidden' name='firstname' value='"+ur1+"'>" +
+"<input type='hidden' name='secondname' value='"+ur2+"'>" +
+"<input type='submit' value=\"Редактировать\">" + "</form>" +"</br>" +"<br>" +
+"<form action=\"" +resp.encodeUrl("/simpleservlet/Students/delete" +"?"+"id=value")+"\" method=\"get\">" +
+"<input type='submit' value=\"Удалить\">" +
+"<input type='hidden' name='id' value='" +ids+ "'>" +"</form>" + "</br>");
+}
+
+} 
+
 public  void chooseSubjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException { 
-
-
 
 Student s = new Student(); 
 s.setId(Integer.valueOf(req.getParameter("id"))); 
@@ -138,14 +164,12 @@ rd.forward(req, resp);
 }
 
 public void addNewStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
-
+PrintWriter pw = resp.getWriter();
 	Student s=new Student(); 
 s.setFirstName(req.getParameter("firstname")); 
 s.setSecondName(req.getParameter("secondname")); 
-
 studentService.add(s); 
-RequestDispatcher rd = req.getRequestDispatcher("/newStudent.jsp");
-rd.forward(req, resp); 
+pw.println(s);
 }
 
 public  void addNewSubjectForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
@@ -335,6 +359,8 @@ newUrl=st.nextToken();
 
 if(newUrl.equals(LIST_OF_STUDENTS)) { 
 getListOfStudents(req, resp);
+} else if(newUrl.equals(LIST)) {
+	getList(req, resp);
 } else if(newUrl.equals(CHOICE_SUBJECT) && req.getParameter("subject")==null) { 
 
 chooseSubjects(req, resp); 
