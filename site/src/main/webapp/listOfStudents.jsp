@@ -7,28 +7,8 @@
 <html>
   <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	  <script> function add() {
-		  var request = new XMLHttpRequest();
-		  var forma=document.getElementById('new');
-		  var firstname=forma.elements.firstname.value;
-		  var secondname=forma.elements.secondname.value;
- request.open('GET','Students/newstudent'+'?'+'firstname='+encodeURIComponent(firstname)+'&'+'secondname='+encodeURIComponent(secondname),true);
-  request.addEventListener('readystatechange', function() {
-	  var request1=new XMLHttpRequest();
-    if (request.readyState==4 && request.status == 200) {
-		
-      request1.open('GET', 'Students/select', true);
-	  request1.addEventListener('readystatechange', function() {
-    if (request1.readyState==4 && request1.status == 200) {
-		document.getElementById("select").innerHTML = request1.responseText;
-	}
-	  });
-	  request1.send();
-  }
-  });
-request.send();
-}
- </script>
+	  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	   <script type="text/javascript" src="jqu.js"></script>
 	  </head>
 	  <body>
 <center>
@@ -65,13 +45,13 @@ request.send();
 </H3>
 <form id="new" method="get"> 
 <p>Имя 
-<input type="text" name="firstname" value=""/> 
+<input id="firstname" type="text"  name="firstname" value=""/> 
 </p> 
 <p>Фамилия 
-<input type="text" name="secondname" value=""/> 
+<input id="secondname" type="text" name="secondname" value=""/> 
 </p>
 </form>
-<button type="button" id="sub" form="new" onclick="add(); return false;">Отправить</button>
+<button type="button" id="sub" form="new" >Отправить</button>
 </p>
 </td>
 </tr>
