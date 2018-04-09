@@ -1,0 +1,14 @@
+spring\entities\Statistic.class
+spring\service\ValidationException.class
+spring\boot\VotingController.class
+spring\dto\ListOfVariants.class
+spring\dto\StatisticForUser.class
+spring\boot\VoteServiceApplication.class
+spring\showing\Voice.class
+spring\entities\ListOfAnswers.class
+spring\service\ServiceVoting.class
+spring\entities\State.class
+spring\entities\Answers.class
+spring\entities\Vote.class
+spring\showing\ShowVote.class
+spring\service\CreateVotingDao.class
