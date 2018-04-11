@@ -50,6 +50,7 @@ ServiceVoting serviceVoting;
 	
 	@RequestMapping(value="start/add", method = RequestMethod.POST)
 	@ResponseBody
+	//Using dto object for showing information in the JSON format
 	public Voice addVoice(@RequestParam(value="id") int id, @RequestParam(value="numberOfVariant") String numberOfVariant) {
 		
 		return serviceVoting.addVoice(id, numberOfVariant);

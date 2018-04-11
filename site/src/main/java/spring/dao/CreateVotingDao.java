@@ -91,7 +91,7 @@ public String getStateOfVoteId(int key) {
 	vote.setId(key);
 		Query query = getSession().createQuery("SELECT state FROM State WHERE voteId= :par");
 		query.setParameter("par", vote);
-	return (String)query.uniqueResult();
+	return (String)query.uniqueResult(); 
 	}	
 
 public List<StatisticForUser> getListStatistic(int key)  {

@@ -36,6 +36,8 @@ public ShowVote createVoting(String nameOfVote, String question, String[] varian
 	Vote vote=new Vote();
 		vote.setName(nameOfVote);
 		vote.setQuestion(question);
+		//next row for mock object test
+		//vote.setId(1);   
 	createVotingDao.createNewVote(vote);
 	
 	//Write in fields of the ShowVote class
@@ -91,6 +93,7 @@ public void changeStateOfVoting(String activity, int id) {
 	}
 	
 //Select all information about certain vote
+@Transactional
 public ShowVote showVote(int id) {
 	
 	ShowVote showVote=new ShowVote();
