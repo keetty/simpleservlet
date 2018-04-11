@@ -29,11 +29,7 @@ CreateVotingDao createVotingDao;
 
 private final int  id=24;
 
-@Before
-    public void setup()
-    {
 
-    }
 
 @Test
 public void checkInGetListOfAnswers() {
